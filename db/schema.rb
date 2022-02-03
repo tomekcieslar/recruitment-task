@@ -15,14 +15,17 @@ ActiveRecord::Schema.define(version: 2020_12_09_162021) do
   create_table "events", force: :cascade do |t|
     t.string "name"
     t.datetime "time"
+    t.integer "capacity"
+    t.decimal "ticket_price", precision: 8, scale: 2
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "tickets", force: :cascade do |t|
-    t.integer "available"
-    t.decimal "price", precision: 8, scale: 2
+    t.string "status", default: "reserved"
+    t.integer "quantity", null: false
     t.integer "event_id", null: false
+    t.decimal "price", precision: 8, scale: 2
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["event_id"], name: "index_tickets_on_event_id"
