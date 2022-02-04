@@ -3,7 +3,11 @@
 class Event < ApplicationRecord
   has_many :tickets
 
-  def formatted_time
-    time.strftime("%d %B %Y, %H:%M")
+  def taken_tickets_count
+    tickets.select { |ticket| ["reserved", "confirmed"].include?(ticket.status) }.sum(&:quantity)
+  end
+
+  def free_tickets_count
+    capacity - taken_tickets_count
   end
 end

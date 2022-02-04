@@ -7,6 +7,11 @@
   )
 
   2.times do
-    Ticket.create!(status: 'confirmed', quantity: 2, event: e, price: 2 * e.ticket_price)
+    Ticket.create!(
+      status: 'confirmed',
+      quantity: 2,
+      event: e,
+      price: 2 * e.ticket_price,
+      token: SecureRandom.base64(12))
   end
 end

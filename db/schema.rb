@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_09_162021) do
+ActiveRecord::Schema.define(version: 2022_02_04_190436) do
 
   create_table "events", force: :cascade do |t|
     t.string "name"
@@ -28,7 +28,9 @@ ActiveRecord::Schema.define(version: 2020_12_09_162021) do
     t.decimal "price", precision: 8, scale: 2
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "token"
     t.index ["event_id"], name: "index_tickets_on_event_id"
+    t.index ["status"], name: "index_tickets_on_status"
   end
 
   add_foreign_key "tickets", "events"
