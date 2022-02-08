@@ -3,7 +3,7 @@ class CreateTicketForm
 
   attr_accessor :quantity, :event_id
   validates_presence_of :quantity, :event_id
-  validate :ticket_quantity_condition, :enough_free_tickets, :event_cannot_be_in_past
+  validate :ticket_quantity_condition, :enough_free_tickets, :event_cannot_be_in_past, :quantity_grater_than_zero
 
   def save
     if event.present? && valid?
@@ -23,8 +23,12 @@ class CreateTicketForm
     SecureRandom.base64(12)
   end
 
+  def quantity_grater_than_zero
+    errors.add(:quantity, "must me grater than 0") unless quantity.to_i > 0
+  end
+
   def ticket_quantity_condition
-    errors.add(:quantity, "invalid quantity of tickets") unless even? || avoid_one?
+    errors.add(:quantity, "of tickets is invalid") unless even? || avoid_one?
   end
 
   def enough_free_tickets

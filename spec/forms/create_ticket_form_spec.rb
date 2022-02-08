@@ -28,7 +28,15 @@ RSpec.describe CreateTicketForm do
       let(:params) { { event_id: event.id, quantity: nil } }
 
       it "return error with message" do
-        expect(subject[:error]).to eq "Quantity can't be blank"
+        expect(subject[:error]).to eq "Quantity can't be blank. Quantity must me grater than 0"
+      end
+    end
+
+    context "when quantity is diffrent type than number" do
+      let(:params) { { event_id: event.id, quantity: "two" } }
+
+      it "return error with message" do
+        expect(subject[:error]).to eq "Quantity must me grater than 0"
       end
     end
 
@@ -60,7 +68,7 @@ RSpec.describe CreateTicketForm do
       let(:params) { { event_id: event.id, quantity: 5 } }
 
       it "return error with message" do
-        expect(subject[:error]).to eq "Quantity invalid quantity of tickets"
+        expect(subject[:error]).to eq "Quantity of tickets is invalid"
       end
     end
   end
